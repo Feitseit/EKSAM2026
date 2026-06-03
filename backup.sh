@@ -10,7 +10,7 @@ BACKUP_DIR="/var/backups"
 WEB_DIR="/var/www/kasutajatugi"
 
 # Andmebaasi andmed
-DB_HOST="10.0.20.10"
+DB_HOST="10.0.51.10"
 DB_NAME="kasutajatugi"
 DB_USER="kasutajatugi"
 DB_PASS="Kasutaja2026!"
