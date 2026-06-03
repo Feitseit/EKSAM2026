@@ -1,0 +1,67 @@
+---
+- name: Linuxi serverite ühine algseadistus
+  hosts: linux
+  become: yes
+
+  vars:
+    admin_user: hkhk
+    ssh_public_key: "SIIA_KLEEBI_OMA_SSH_AVALIK_VOTI"
+
+  tasks:
+    - name: Loo kasutaja hkhk
+      user:
+        name: "{{ admin_user }}"
+        shell: /bin/bash
+        create_home: yes
+        state: present
+
+    - name: Lisa kasutaja õigesse admin gruppi
+      user:
+        name: "{{ admin_user }}"
+        groups: "{{ 'wheel' if ansible_os_family == 'RedHat' else 'sudo' }}"
+        append: yes
+
+    - name: Lisa SSH avalik võti kasutajale hkhk
+      authorized_key:
+        user: "{{ admin_user }}"
+        key: "{{ ssh_public_key }}"
+        state: present
+
+    - name: Luba sudo ilma paroolita kasutajale hkhk
+      copy:
+        dest: "/etc/sudoers.d/{{ admin_user }}"
+        content: "{{ admin_user }} ALL=(ALL) NOPASSWD:ALL\n"
+        owner: root
+        group: root
+        mode: "0440"
+        validate: "visudo -cf %s"
+
+    - name: Keela root SSH login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PermitRootLogin"
+        line: "PermitRootLogin no"
+
+    - name: Keela SSH parooliga sisselogimine
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PasswordAuthentication"
+        line: "PasswordAuthentication no"
+
+    - name: Luba ainult võtmega autentimine
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PubkeyAuthentication"
+        line: "PubkeyAuthentication yes"
+
+    - name: Taaskäivita SSH Debian/Ubuntu
+      service:
+        name: ssh
+        state: restarted
+      when: ansible_os_family == "Debian"
+
+    - name: Taaskäivita SSH Alma/RHEL
+      service:
+        name: sshd
+        state: restarted
+      when: ansible_os_family == "RedHat"

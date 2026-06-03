@@ -1,0 +1,24 @@
+---
+- name: Install Apache and PHP on AlmaLinux
+  hosts: alma
+  become: yes
+
+  tasks:
+
+    - name: Install Apache
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Install PHP
+      dnf:
+        name:
+          - php
+          - php-mysqlnd
+        state: present
+
+    - name: Start and enable Apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
