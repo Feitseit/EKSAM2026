@@ -15,5 +15,6 @@ LINUX ticket 3
 veebilehe admin paneeli
 u:admin p:admin123
 
+(Kui tahan andmebaasis muudatusi teha)
 Mariadb -u root -p
 password : RootParool2026!
