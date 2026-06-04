@@ -5,7 +5,7 @@ $csvPath = "C:\Users\Administrator\Desktop\Skript\kasutajad.csv"
 
 # Domeen ja baas-OU
 $domain = "kala.praktika"
-$baseOU = "OU=Kasutajad,DC=kala,DC=praktika"
+$baseOU = "OU=Kasutajad,DC=markusk,DC=local"
 
 # Impordi CSV
 $users = Import-Csv -Path $csvPath
