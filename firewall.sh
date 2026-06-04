@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# debian/ubuntu  (almal firewalld)
 # RESET
 ufw --force reset
 
