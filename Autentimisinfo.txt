@@ -1,0 +1,19 @@
+ÜLD
+
+win server Administrator Passw0rd
+core Administrator Passw0rd
+win klient haldur Passw0rd
+linux masinad (debian/alma/ubuntu) kasutaja Passw0rd
+ubuntu masinast : SSH debian/alma pihta näiteks kontoga hkhk seal parooli vaja pole
+
+
+Kasutajad csv-st saad kontode paroolid
+(Eksam2026/Skriptid windows/kasutajad - kasutajad.csv at main · Feitseit/Eksam2026 ):
+nt: aivo.teder P@ssw0rd1 jne
+
+LINUX ticket 3
+veebilehe admin paneeli
+u:admin p:admin123
+
+Mariadb -u root -p
+password : RootParool2026!
