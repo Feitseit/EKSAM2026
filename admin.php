@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $kasutajanimi = $_POST["kasutajanimi"];
     $parool = $_POST["parool"];
 
-    $stmt = $conn->prepare("SELECT * FROM administraator WHERE kasutajanimi = ? AND parool = ?");
+    $stmt = $conn->prepare("SELECT * FROM administraator WHERE kasutajanimi = ? AND parool = SHA2(?,256)");
     $stmt->bind_param("ss", $kasutajanimi, $parool);
     $stmt->execute();
     $tulemus = $stmt->get_result();
